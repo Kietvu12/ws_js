@@ -1,0 +1,38 @@
+// トップへ戻るボタン
+
+document.addEventListener('DOMContentLoaded', function () {
+  const scrollBtn = document.getElementById('js-btn__scroll');
+
+  if (scrollBtn) {
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    handleScrollFade(scrollBtn, 400);
+  }
+});
+
+function handleScrollFade(element, threshold) {
+  window.addEventListener('scroll', function () {
+    let scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+    if (scrollTop > threshold) {
+      fadeIn(element);
+    } else {
+      fadeOut(element);
+    }
+  });
+}
+function fadeIn(element) {
+  element.style.transition = 'opacity .4s ease';
+  element.style.opacity = '1';
+  element.style.visibility = 'visible';
+}
+function fadeOut(element) {
+  element.style.transition = 'opacity .4s ease';
+  element.style.opacity = '0';
+  element.style.visibility = 'hidden';
+}

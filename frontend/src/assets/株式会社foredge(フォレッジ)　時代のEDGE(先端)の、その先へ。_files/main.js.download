@@ -1,0 +1,152 @@
+// メディアクエリ
+const mediaQueryList = window.matchMedia('(max-width: 767px)');
+
+const listener = (event) => {
+  if (event.matches) {
+    // スマホ表示
+    //viewport.setAttribute("content", "width=device-width,initial-scale=1");
+
+    // フッターナビゲーション
+    const menuItems = document.querySelectorAll('.btn-toggle-menu');
+
+    menuItems.forEach(item => {
+      item.addEventListener('click', function() {
+        const subMenu = item.nextElementSibling;
+
+        if (subMenu.classList.contains('is-open')) {
+          subMenu.style.maxHeight = 0;
+          subMenu.classList.remove('is-open');
+          item.classList.remove('is-active');
+        } else {
+          // Close other open submenus
+          document.querySelectorAll('.footer-menu__sub.is-open').forEach(openSubMenu => {
+            openSubMenu.style.maxHeight = 0;
+            openSubMenu.classList.remove('is-open');
+
+            const openHeader = openSubMenu.previousElementSibling;
+            openHeader.classList.remove('is-active');
+          });
+  
+          subMenu.style.maxHeight = subMenu.scrollHeight + 'px';
+          subMenu.classList.add('is-open');
+          item.classList.add('is-active');
+        }
+      });
+    });
+  }
+};
+
+mediaQueryList.addEventListener('change', listener);
+listener(mediaQueryList);
+
+
+// メニュー
+
+const toggleBtn = document.getElementById('js-mega-menu__btn');
+const menuList = document.getElementById('js-mega-menu__target');
+const megaMenuItems = document.querySelectorAll('.anchor-link');
+const mobileMenuItems = document.querySelectorAll('.mobile-menu__item');
+
+// let isMenuOpen = false;
+let isMenuOpen = toggleBtn.classList.contains('is-active');
+
+const toggleMenu = () => {
+	isMenuOpen = !isMenuOpen;
+  
+  if(isMenuOpen) {
+    toggleBtn.classList.add('is-active');
+    menuList.classList.add('is-active');
+    document.body.classList.add('no-scroll');
+  }
+  else {
+    toggleBtn.classList.remove('is-active');
+    menuList.classList.remove('is-active');
+    document.body.classList.remove('no-scroll');
+  }
+}
+toggleBtn.addEventListener('click', toggleMenu);
+
+const menuItems = [...megaMenuItems, ...mobileMenuItems];
+menuItems.forEach(item => {
+  item.addEventListener('click', toggleMenu);
+});
+
+// マーキー
+const marqueeTexts = document.querySelectorAll('.marquee-inner');
+
+marqueeTexts.forEach((marqueeText) => {
+  const textWidth = marqueeText.scrollWidth;
+  const containerWidth = marqueeText.parentElement.clientWidth;
+
+  const duration = (textWidth + containerWidth) * 10;
+
+  marqueeText.animate(
+    [
+      { transform: `translateX(0)` },
+      // { transform: `translateX(-${textWidth + containerWidth}px)` }
+      { transform: `translateX(-100%)` }
+    ],
+    {
+      duration: duration,
+      iterations: Infinity,
+      fill: 'both'
+    }
+  );
+});
+
+// アニメーション
+const sections = document.querySelectorAll('section');
+const listBlock = document.getElementById('js-list__block');
+const secondListBlock = document.getElementById('js-list__second-block');
+
+const observerCallback = (entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-viewport');
+      observer.unobserve(entry.target);
+    }
+  });
+};
+
+const createObserver = (target, threshold) => {
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: threshold
+  };
+
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+  observer.observe(target);
+};
+
+const sectionThreshold = 0.1;
+const listItemThreshold = 0.2;
+
+sections.forEach(section => {
+  createObserver(section, sectionThreshold);
+});
+
+if(listBlock) {
+  const listItems = Array.from(listBlock.children);
+  
+  listItems.forEach(item => {
+    createObserver(item, listItemThreshold);
+  });
+}
+
+if(secondListBlock) {
+  const secondListItems = Array.from(secondListBlock.children);
+
+  secondListItems.forEach(item => {
+    createObserver(item, listItemThreshold);
+  });
+}
+
+// .in-viewport to the first section after the page is fully loaded
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    if (sections.length > 0) {
+      sections[0].classList.add('in-viewport');
+    }
+  }, 500);
+});

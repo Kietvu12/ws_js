@@ -1,0 +1,79 @@
+/* Rich editor: toolbar tách riêng, tránh nhân đôi */
+.rich-editor-wrapper {
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+}
+
+.rich-editor-toolbar {
+  flex-shrink: 0;
+}
+
+.rich-editor-wrapper .ql-toolbar.ql-snow {
+  flex-shrink: 0;
+  border-radius: 8px 8px 0 0;
+  padding: 8px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.rich-editor-wrapper .ql-container.ql-snow {
+  flex: 1;
+  min-height: 0;
+  border-radius: 0 0 8px 8px;
+}
+
+.rich-editor-wrapper .ql-editor {
+  min-height: 420px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.rich-editor-wrapper .ql-editor.ql-blank::before {
+  font-style: normal;
+  color: #9ca3af;
+}
+
+/* Font chữ: Sans-serif, Raleway, Montserrat (load Google Fonts) */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+
+/* Nội dung trong editor (format class) */
+.rich-editor-wrapper .ql-editor .ql-font-sans-serif,
+.rich-editor-wrapper .ql-editor [data-value="sans-serif"] {
+  font-family: sans-serif, system-ui, -apple-system, sans-serif;
+}
+.rich-editor-wrapper .ql-editor .ql-font-raleway,
+.rich-editor-wrapper .ql-editor .ql-font-Raleway,
+.rich-editor-wrapper .ql-editor [data-value="raleway"] {
+  font-family: 'Raleway', sans-serif;
+}
+.rich-editor-wrapper .ql-editor .ql-font-montserrat,
+.rich-editor-wrapper .ql-editor .ql-font-Montserrat,
+.rich-editor-wrapper .ql-editor [data-value="montserrat"] {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Dropdown toolbar: mỗi mục hiển thị đúng font để phân biệt */
+.rich-editor-wrapper .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="sans-serif"] {
+  font-family: sans-serif, system-ui, sans-serif;
+}
+.rich-editor-wrapper .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="Raleway"],
+.rich-editor-wrapper .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="raleway"] {
+  font-family: 'Raleway', sans-serif;
+}
+.rich-editor-wrapper .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="Montserrat"],
+.rich-editor-wrapper .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="montserrat"] {
+  font-family: 'Montserrat', sans-serif;
+}
+.rich-editor-wrapper .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="sans-serif"] {
+  font-family: sans-serif, system-ui, sans-serif;
+}
+.rich-editor-wrapper .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="Raleway"],
+.rich-editor-wrapper .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="raleway"] {
+  font-family: 'Raleway', sans-serif;
+}
+.rich-editor-wrapper .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="Montserrat"],
+.rich-editor-wrapper .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="montserrat"] {
+  font-family: 'Montserrat', sans-serif;
+}

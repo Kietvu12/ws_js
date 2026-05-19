@@ -1,0 +1,2169 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobShare - Kết nối cơ hội việc làm Nhật Bản</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #ED212F;
+            --red-dark: #C41820;
+            --red-light: #FF4D58;
+            --white: #FFFFFF;
+            --off-white: #FAFAFA;
+            --gray-50: #F8F9FA;
+            --gray-100: #F1F3F5;
+            --gray-200: #E9ECEF;
+            --gray-300: #DEE2E6;
+            --gray-400: #CED4DA;
+            --gray-500: #ADB5BD;
+            --gray-600: #868E96;
+            --gray-700: #495057;
+            --gray-800: #343A40;
+            --gray-900: #212529;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--white);
+            color: var(--gray-800);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Sakura Animation */
+        .sakura-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        .sakura {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--red);
+            opacity: 0.6;
+            border-radius: 50% 0 50% 50%;
+            transform: rotate(45deg);
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(45deg) rotateZ(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(45deg) rotateZ(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+
+        .header-top {
+            background: var(--gray-900);
+            padding: 8px 0;
+            font-size: 12px;
+            color: var(--gray-400);
+        }
+
+        .header-top-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-top a {
+            color: var(--gray-400);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .header-top a:hover {
+            color: var(--white);
+        }
+
+        .header-main {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--gray-900);
+            letter-spacing: -1px;
+        }
+
+        .logo-text span {
+            color: var(--red);
+        }
+
+        .logo-sub {
+            font-size: 10px;
+            color: var(--gray-500);
+            margin-top: 2px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--gray-700);
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--red);
+            transition: width 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: var(--red);
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--gray-700);
+        }
+
+        .btn-ghost:hover {
+            color: var(--red);
+            background: rgba(237, 33, 47, 0.05);
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--red-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(237, 33, 47, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--red);
+            color: var(--red);
+        }
+
+        .btn-outline:hover {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--red);
+        }
+
+        .btn-white:hover {
+            background: var(--gray-50);
+            transform: translateY(-2px);
+        }
+
+        .btn-large {
+            padding: 16px 32px;
+            font-size: 15px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 140px 40px 100px;
+            background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-sakura-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23ED212F' fill-opacity='0.05' d='M50 15c-5 0-9 4-9 9s4 9 9 9 9-4 9-9c0-2-1-4-2-6 3-1 5-4 5-7 0-4-3-7-7-7s-7 3-7 7c0 3 2 6 5 7-2 2-3 4-3 6z'/%3E%3C/svg%3E");
+            background-size: 80px 80px;
+            opacity: 0.5;
+        }
+
+        .hero-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            padding: 8px 16px;
+            border-radius: 50px;
+            margin-bottom: 24px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .hero-badge-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 12px;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--gray-900);
+            line-height: 1.15;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero-title .highlight {
+            color: var(--red);
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 32px;
+            max-width: 520px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+            padding: 24px 0;
+            border-top: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .hero-stat {
+            text-align: left;
+        }
+
+        .hero-stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--red);
+        }
+
+        .hero-stat-label {
+            font-size: 13px;
+            color: var(--gray-600);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+        }
+
+        /* Hero Image Grid */
+        .hero-images {
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .hero-image-card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: var(--gray-100);
+        }
+
+        .hero-image-card:nth-child(1) {
+            background: var(--red);
+        }
+
+        .hero-image-card:nth-child(2) {
+            background: #FFD93D;
+        }
+
+        .hero-image-card:nth-child(3) {
+            background: #6BCB77;
+        }
+
+        .hero-image-card:nth-child(4) {
+            background: #4D96FF;
+        }
+
+        .hero-image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 48px;
+        }
+
+        .hero-floating-badge {
+            position: absolute;
+            background: var(--white);
+            padding: 12px 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-floating-badge.top {
+            top: -20px;
+            right: 20px;
+        }
+
+        .hero-floating-badge.bottom {
+            bottom: -20px;
+            left: 20px;
+            animation-delay: 1s;
+        }
+
+        .floating-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(237, 33, 47, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--red);
+            font-size: 18px;
+        }
+
+        .floating-text {
+            font-size: 13px;
+        }
+
+        .floating-text strong {
+            display: block;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .floating-text span {
+            color: var(--gray-500);
+            font-size: 12px;
+        }
+
+        /* Registration Card */
+        .register-card {
+            position: fixed;
+            top: 120px;
+            right: 40px;
+            width: 360px;
+            background: var(--white);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            z-index: 100;
+            border: 1px solid var(--gray-100);
+        }
+
+        .register-card-hidden {
+            display: none;
+        }
+
+        .register-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--red);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .register-card .btn {
+            width: 100%;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .register-card p {
+            font-size: 12px;
+            color: var(--gray-500);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .register-card p a {
+            color: var(--gray-700);
+            text-decoration: underline;
+        }
+
+        .register-social {
+            text-align: center;
+        }
+
+        .register-social span {
+            font-size: 12px;
+            color: var(--gray-500);
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .social-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-icon.facebook {
+            background: #1877F2;
+            color: var(--white);
+        }
+
+        .social-icon.zalo {
+            background: #0068FF;
+            color: var(--white);
+        }
+
+        .social-icon.gmail {
+            background: var(--gray-100);
+            color: #EA4335;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Section Common */
+        .section {
+            padding: 100px 40px;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 60px;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--red);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .section-tag::before,
+        .section-tag::after {
+            content: '';
+            width: 30px;
+            height: 2px;
+            background: var(--red);
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--gray-600);
+            line-height: 1.7;
+        }
+
+        /* Jobs Section */
+        .jobs-section {
+            background: var(--gray-50);
+            position: relative;
+        }
+
+        .jobs-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 5c-3 0-5.5 2.5-5.5 5.5S27 16 30 16s5.5-2.5 5.5-5.5-2.5-5.5-5.5-5.5zm-8 3c-1.5 0-2.5 1-2.5 2.5S20.5 13 22 13s2.5-1 2.5-2.5S23.5 8 22 8zm16 0c-1.5 0-2.5 1-2.5 2.5S36.5 13 38 13s2.5-1 2.5-2.5S39.5 8 38 8z' fill='%23ED212F' fill-opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .jobs-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .job-tab {
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background: var(--white);
+            color: var(--gray-700);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .job-tab:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .job-tab.active {
+            background: var(--red);
+            color: var(--white);
+            border-color: var(--red);
+        }
+
+        .jobs-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .job-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--gray-200);
+        }
+
+        .job-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-color: var(--red);
+        }
+
+        .job-card-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            gap: 16px;
+        }
+
+        .job-company-logo {
+            width: 56px;
+            height: 56px;
+            background: var(--gray-100);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-400);
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .job-card-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .job-card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .job-card-company {
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+
+        .job-card-body {
+            padding: 24px;
+        }
+
+        .job-card-desc {
+            font-size: 13px;
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .job-card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .job-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--gray-600);
+        }
+
+        .job-meta-icon {
+            color: var(--red);
+            font-size: 14px;
+        }
+
+        .job-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .job-salary {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--red);
+        }
+
+        .job-salary span {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--gray-500);
+        }
+
+        .job-link {
+            color: var(--red);
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: gap 0.3s ease;
+        }
+
+        .job-link:hover {
+            gap: 8px;
+        }
+
+        .view-all-jobs {
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        /* Features Section */
+        .features-section {
+            background: var(--white);
+        }
+
+        .features-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 40px 24px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(237, 33, 47, 0.02) 0%, transparent 100%);
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gray-50);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: var(--red);
+        }
+
+        .feature-icon svg {
+            width: 36px;
+            height: 36px;
+            stroke: var(--red);
+            fill: none;
+            stroke-width: 1.5;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon svg {
+            stroke: var(--white);
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: var(--gray-600);
+            line-height: 1.7;
+        }
+
+        /* Process Section */
+        .process-section {
+            background: var(--red);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23fff' stroke-opacity='0.1' stroke-width='0.5'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%23fff' stroke-opacity='0.1' stroke-width='0.5'/%3E%3Ccircle cx='50' cy='50' r='20' fill='none' stroke='%23fff' stroke-opacity='0.1' stroke-width='0.5'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
+        }
+
+        .process-section .section-tag {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .process-section .section-tag::before,
+        .process-section .section-tag::after {
+            background: rgba(255,255,255,0.5);
+        }
+
+        .process-section .section-title {
+            color: var(--white);
+        }
+
+        .process-section .section-subtitle {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .process-steps {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .process-step::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: calc(50% + 50px);
+            width: calc(100% - 100px);
+            height: 2px;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .process-step:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--red);
+            margin: 0 auto 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+        }
+
+        /* Partners Section */
+        .partners-section {
+            background: var(--gray-50);
+            padding: 60px 40px;
+        }
+
+        .partners-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .partners-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 32px;
+        }
+
+        .partners-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .partner-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gray-400);
+            transition: color 0.3s ease;
+        }
+
+        .partner-logo:hover {
+            color: var(--gray-600);
+        }
+
+        .partner-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-200);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            background: var(--white);
+        }
+
+        .testimonials-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .testimonial-card {
+            background: var(--gray-50);
+            border-radius: 20px;
+            padding: 32px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .testimonial-quote {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-size: 48px;
+            color: var(--red);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-content {
+            font-size: 14px;
+            color: var(--gray-600);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--red);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .testimonial-info {
+            flex: 1;
+        }
+
+        .testimonial-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .testimonial-role {
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 40px;
+            background: var(--gray-900);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cpath d='M50 10c-5 0-9 4-9 9 0 3 1 5 3 7-3 1-5 4-5 7 0 4 3 8 8 8h6c5 0 8-4 8-8 0-3-2-6-5-7 2-2 3-4 3-7 0-5-4-9-9-9z' fill='%23ED212F' fill-opacity='0.1'/%3E%3C/svg%3E");
+            background-size: 150px 150px;
+        }
+
+        .cta-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-size: 40px;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .cta-title span {
+            color: var(--red);
+        }
+
+        .cta-subtitle {
+            font-size: 18px;
+            color: var(--gray-400);
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-900);
+            padding: 80px 40px 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(3, 1fr);
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand {
+            max-width: 280px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+
+        .footer-logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--white);
+        }
+
+        .footer-logo-text span {
+            color: var(--red);
+        }
+
+        .footer-desc {
+            font-size: 14px;
+            color: var(--gray-500);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 18px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .footer-social a:hover {
+            background: var(--red);
+            transform: translateY(-4px);
+        }
+
+        .footer-column h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--gray-500);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 8px;
+        }
+
+        .footer-bottom {
+            padding-top: 32px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-copyright {
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-bottom-links a {
+            color: var(--gray-500);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--white);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 2px;
+            background: var(--gray-700);
+            border-radius: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-subtitle {
+                margin: 0 auto 32px;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .hero-cta {
+                justify-content: center;
+            }
+
+            .hero-images {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .register-card {
+                position: static;
+                width: 100%;
+                max-width: 400px;
+                margin: 40px auto 0;
+            }
+
+            .jobs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-steps {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 48px;
+            }
+
+            .process-step::after {
+                display: none;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-top {
+                display: none;
+            }
+
+            .header-main {
+                padding: 12px 20px;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+            }
+
+            .hero-floating-badge {
+                display: none;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .jobs-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .job-tab {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .jobs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .partners-logos {
+                gap: 24px;
+            }
+
+            .cta-title {
+                font-size: 28px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .header-actions .btn-ghost {
+                display: none;
+            }
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Sakura Petals -->
+    <div class="sakura-container" id="sakura"></div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-top">
+            <div class="header-top-inner">
+                <span>Nền tảng kết nối việc làm Nhật thông qua cộng đồng giới thiệu nhân sự</span>
+                <div>
+                    <a href="#">Hotline: 1900 xxxx</a>
+                </div>
+            </div>
+        </div>
+        <div class="header-main">
+            <a href="#" class="logo">
+                <div>
+                    <span class="logo-text">Job<span>Share</span></span>
+                    <div class="logo-sub">powered by Workstation</div>
+                </div>
+            </a>
+
+            <nav class="nav">
+                <a href="#jobs">Danh sách việc làm</a>
+                <a href="#about">Giới thiệu</a>
+                <a href="#partner">Partner</a>
+                <a href="#guide">Hướng dẫn sử dụng</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="#" class="btn btn-ghost">Đăng nhập</a>
+                <a href="#" class="btn btn-primary">Đăng ký</a>
+            </div>
+
+            <button class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-sakura-bg"></div>
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="hero-badge-icon">🇯🇵</span>
+                    <span>Số lượng CTV tuyển dụng kỹ sư cho doanh nghiệp Nhật <strong>NO.1</strong></span>
+                </div>
+                <h1 class="hero-title">
+                    KẾT NỐI CƠ HỘI<br>
+                    <span class="highlight">NHÂN ĐÔI THÀNH CÔNG</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Nền tảng kết nối việc làm Nhật Bản hàng đầu Việt Nam. 
+                    Cùng JobShare, mở ra cánh cửa sự nghiệp quốc tế với hàng trăm cơ hội việc làm chất lượng cao.
+                </p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">200+</div>
+                        <div class="hero-stat-label">Việc làm đang tuyển</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">50+</div>
+                        <div class="hero-stat-label">Đối tác Nhật Bản</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">1000+</div>
+                        <div class="hero-stat-label">CTV đang hoạt động</div>
+                    </div>
+                </div>
+                <div class="hero-cta">
+                    <a href="#jobs" class="btn btn-primary btn-large">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
+                        Xem việc làm ngay
+                    </a>
+                    <a href="#" class="btn btn-outline btn-large">Tìm hiểu thêm</a>
+                </div>
+            </div>
+
+            <div class="hero-images">
+                <div class="hero-grid">
+                    <div class="hero-image-card">
+                        <div class="hero-image-placeholder">👨‍💼</div>
+                    </div>
+                    <div class="hero-image-card">
+                        <div class="hero-image-placeholder">👩‍💻</div>
+                    </div>
+                    <div class="hero-image-card">
+                        <div class="hero-image-placeholder">👨‍🔧</div>
+                    </div>
+                    <div class="hero-image-card">
+                        <div class="hero-image-placeholder">👩‍🔬</div>
+                    </div>
+                </div>
+                <div class="hero-floating-badge top">
+                    <div class="floating-icon">✓</div>
+                    <div class="floating-text">
+                        <strong>+50 việc mới</strong>
+                        <span>Tuần này</span>
+                    </div>
+                </div>
+                <div class="hero-floating-badge bottom">
+                    <div class="floating-icon">⭐</div>
+                    <div class="floating-text">
+                        <strong>98% hài lòng</strong>
+                        <span>Từ ứng viên</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registration Card (Desktop) -->
+        <div class="register-card register-card-hidden" id="register-card">
+            <h3>Trở thành cộng tác viên<br>của JobShare</h3>
+            <a href="#" class="btn btn-primary btn-large">Đăng ký ngay</a>
+            <p>Vui lòng đăng ký sau khi đã đồng ý với <a href="#">Quy định & Chính sách sử dụng</a> nền tảng dành cho cộng tác viên.</p>
+            <div class="register-social">
+                <span>Mọi thắc mắc xin vui lòng liên hệ:</span>
+                <div class="social-icons">
+                    <div class="social-icon facebook">f</div>
+                    <div class="social-icon zalo">Z</div>
+                    <div class="social-icon gmail">✉</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jobs Section -->
+    <section class="section jobs-section" id="jobs">
+        <div class="section-header fade-in">
+            <div class="section-tag">Việc làm hot</div>
+            <h2 class="section-title">Hơn 200 việc làm đang tìm kiếm nhân sự kỹ sư</h2>
+            <p class="section-subtitle">Đa dạng ngành nghề từ IT, Cơ khí, Xây dựng đến Điện - Điện tử với mức lương hấp dẫn</p>
+        </div>
+
+        <div class="jobs-tabs fade-in">
+            <button class="job-tab active">Tuyển tại Nhật</button>
+            <button class="job-tab">Tuyển tại Việt Nam</button>
+            <button class="job-tab">Tuyển 2 đầu Việt - Nhật</button>
+        </div>
+
+        <div class="jobs-grid">
+            <div class="job-card fade-in">
+                <div class="job-card-header">
+                    <div class="job-company-logo">🏢</div>
+                    <div class="job-card-info">
+                        <h3 class="job-card-title">STAFF SERVICE - Kỹ sư thiết kế cơ khí</h3>
+                        <p class="job-card-company">Staff Service Engineering</p>
+                    </div>
+                </div>
+                <div class="job-card-body">
+                    <p class="job-card-desc">Top 3 công ty phái cử lớn tại Nhật tuyển kỹ sư thiết kế cơ khí. Cơ hội làm việc trong môi trường kỹ thuật lớn tại Nhật, thu nhập theo năng lực...</p>
+                    <div class="job-card-meta">
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">📍</span> Tokyo, Japan
+                        </span>
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">💼</span> Full-time
+                        </span>
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">📚</span> N3+
+                        </span>
+                    </div>
+                    <div class="job-card-footer">
+                        <div class="job-salary">250,000 <span>yên</span></div>
+                        <a href="#" class="job-link">Xem chi tiết →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="job-card fade-in">
+                <div class="job-card-header">
+                    <div class="job-company-logo">💻</div>
+                    <div class="job-card-info">
+                        <h3 class="job-card-title">OUTSOURCING - Kỹ sư IT</h3>
+                        <p class="job-card-company">Outsourcing Technology</p>
+                    </div>
+                </div>
+                <div class="job-card-body">
+                    <p class="job-card-desc">Outsourcing Technology tuyển kỹ sư IT từ Việt Nam trình độ tương đương N3. Khách hàng lớn của công ty được phân bố tại các khu vực trên...</p>
+                    <div class="job-card-meta">
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">📍</span> Osaka, Japan
+                        </span>
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">💼</span> Full-time
+                        </span>
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">📚</span> N3+
+                        </span>
+                    </div>
+                    <div class="job-card-footer">
+                        <div class="job-salary">280,000 <span>yên</span></div>
+                        <a href="#" class="job-link">Xem chi tiết →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="job-card fade-in">
+                <div class="job-card-header">
+                    <div class="job-company-logo">⚡</div>
+                    <div class="job-card-info">
+                        <h3 class="job-card-title">BENEXT - Kỹ sư cơ khí / Điện - Điện tử</h3>
+                        <p class="job-card-company">BeNEXT Corporation</p>
+                    </div>
+                </div>
+                <div class="job-card-body">
+                    <p class="job-card-desc">Đợt tuyển thứ 18 của BeNEXT hợp tác với Workstation sắp diễn ra vào cuối tháng 9. Ứng viên N4+ từ 01 năm kinh nghiệm trở lên có thể ứng...</p>
+                    <div class="job-card-meta">
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">📍</span> Nagoya, Japan
+                        </span>
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">💼</span> Full-time
+                        </span>
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">📚</span> N4+
+                        </span>
+                    </div>
+                    <div class="job-card-footer">
+                        <div class="job-salary">220,000 <span>yên</span></div>
+                        <a href="#" class="job-link">Xem chi tiết →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="job-card fade-in">
+                <div class="job-card-header">
+                    <div class="job-company-logo">🏗️</div>
+                    <div class="job-card-info">
+                        <h3 class="job-card-title">LINKTRUST - Kỹ sư quản lý thi công</h3>
+                        <p class="job-card-company">Linktrust Co., Ltd</p>
+                    </div>
+                </div>
+                <div class="job-card-body">
+                    <p class="job-card-desc">Linktrust trụ sở Daikanyama, Tokyo tuyển kỹ sư quản lý thi công trình độ N3+. Nội dung công việc: quản lý tiến độ, chất lượng, an toàn và chi...</p>
+                    <div class="job-card-meta">
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">📍</span> Tokyo, Japan
+                        </span>
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">💼</span> Full-time
+                        </span>
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">📚</span> N3+
+                        </span>
+                    </div>
+                    <div class="job-card-footer">
+                        <div class="job-salary">260,000 <span>yên</span></div>
+                        <a href="#" class="job-link">Xem chi tiết →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="job-card fade-in">
+                <div class="job-card-header">
+                    <div class="job-company-logo">🔌</div>
+                    <div class="job-card-info">
+                        <h3 class="job-card-title">Kỹ sư quản lý thi công cơ điện</h3>
+                        <p class="job-card-company">Denki Engineering</p>
+                    </div>
+                </div>
+                <div class="job-card-body">
+                    <p class="job-card-desc">Công ty cơ điện hơn 50 năm tuổi, chuyên lắp đặt thiết bị điện, điều hòa không khí cho nhà máy và tòa nhà, thang máy; hệ thống phát điện...</p>
+                    <div class="job-card-meta">
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">📍</span> Yokohama, Japan
+                        </span>
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">💼</span> Full-time
+                        </span>
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">📚</span> N3+
+                        </span>
+                    </div>
+                    <div class="job-card-footer">
+                        <div class="job-salary">240,000 <span>yên</span></div>
+                        <a href="#" class="job-link">Xem chi tiết →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="job-card fade-in">
+                <div class="job-card-header">
+                    <div class="job-company-logo">🏠</div>
+                    <div class="job-card-info">
+                        <h3 class="job-card-title">TECHNOPRO - Kỹ sư thiết kế xây dựng</h3>
+                        <p class="job-card-company">TechnoPro Construction</p>
+                    </div>
+                </div>
+                <div class="job-card-body">
+                    <p class="job-card-desc">Tuyển kỹ sư thiết kế xây dựng / thiết kế kiến trúc 2 đầu Việt Nhật. Yêu cầu trình độ N3, có kinh nghiệm 1 năm trở lên...</p>
+                    <div class="job-card-meta">
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">📍</span> Việt Nam - Nhật Bản
+                        </span>
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">💼</span> Full-time
+                        </span>
+                        <span class="job-meta-item">
+                            <span class="job-meta-icon">📚</span> N3+
+                        </span>
+                    </div>
+                    <div class="job-card-footer">
+                        <div class="job-salary">230,000 <span>yên</span></div>
+                        <a href="#" class="job-link">Xem chi tiết →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="view-all-jobs fade-in">
+            <a href="#" class="btn btn-outline btn-large">Xem tất cả việc làm →</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features-section" id="about">
+        <div class="section-header fade-in">
+            <div class="section-tag">Tại sao chọn chúng tôi</div>
+            <h2 class="section-title">Ưu điểm vượt trội của JobShare</h2>
+            <p class="section-subtitle">Nền tảng được thiết kế tối ưu cho cả ứng viên và cộng tác viên</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Việc làm chất lượng</h3>
+                <p class="feature-desc">Hàng trăm vị trí từ các doanh nghiệp Nhật Bản uy tín, được kiểm duyệt kỹ càng</p>
+            </div>
+
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Phản hồi nhanh chóng</h3>
+                <p class="feature-desc">Kết nối trực tiếp với nhà tuyển dụng, nhận phản hồi trong thời gian ngắn nhất</p>
+            </div>
+
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2v20"/>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Hoa hồng hấp dẫn</h3>
+                <p class="feature-desc">CTV nhận hoa hồng lên đến 15% khi giới thiệu ứng viên thành công</p>
+            </div>
+
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Cộng đồng lớn mạnh</h3>
+                <p class="feature-desc">Hơn 1000 CTV đang hoạt động, hỗ trợ lẫn nhau trong việc tuyển dụng</p>
+            </div>
+
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">An toàn & Uy tín</h3>
+                <p class="feature-desc">Thông tin được bảo mật tuyệt đối, quy trình tuyển dụng minh bạch</p>
+            </div>
+
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Hỗ trợ 24/7</h3>
+                <p class="feature-desc">Đội ngũ tư vấn nhiệt tình, sẵn sàng giải đáp mọi thắc mắc của bạn</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="section process-section">
+        <div class="section-header fade-in">
+            <div class="section-tag">Quy trình</div>
+            <h2 class="section-title">4 bước đơn giản để thành công</h2>
+            <p class="section-subtitle">Quy trình ứng tuyển được tối giản, nhanh chóng và hiệu quả</p>
+        </div>
+
+        <div class="process-steps">
+            <div class="process-step fade-in">
+                <div class="step-number">1</div>
+                <h3 class="step-title">Đăng ký tài khoản</h3>
+                <p class="step-desc">Tạo tài khoản CTV miễn phí chỉ trong 2 phút</p>
+            </div>
+            <div class="process-step fade-in">
+                <div class="step-number">2</div>
+                <h3 class="step-title">Tìm việc phù hợp</h3>
+                <p class="step-desc">Duyệt danh sách việc làm và chọn vị trí phù hợp</p>
+            </div>
+            <div class="process-step fade-in">
+                <div class="step-number">3</div>
+                <h3 class="step-title">Tiến cử ứng viên</h3>
+                <p class="step-desc">Gửi hồ sơ ứng viên cho nhà tuyển dụng</p>
+            </div>
+            <div class="process-step fade-in">
+                <div class="step-number">4</div>
+                <h3 class="step-title">Nhận hoa hồng</h3>
+                <p class="step-desc">Nhận thưởng khi ứng viên được tuyển dụng</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners-section" id="partner">
+        <div class="partners-inner">
+            <p class="partners-title">Đối tác tin cậy</p>
+            <div class="partners-logos">
+                <div class="partner-logo">
+                    <div class="partner-icon">🏢</div>
+                    <span>Staff Service</span>
+                </div>
+                <div class="partner-logo">
+                    <div class="partner-icon">🏢</div>
+                    <span>BeNEXT</span>
+                </div>
+                <div class="partner-logo">
+                    <div class="partner-icon">🏢</div>
+                    <span>TechnoPro</span>
+                </div>
+                <div class="partner-logo">
+                    <div class="partner-icon">🏢</div>
+                    <span>Outsourcing</span>
+                </div>
+                <div class="partner-logo">
+                    <div class="partner-icon">🏢</div>
+                    <span>LinkTrust</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials-section">
+        <div class="section-header fade-in">
+            <div class="section-tag">Đánh giá</div>
+            <h2 class="section-title">CTV nói gì về chúng tôi?</h2>
+            <p class="section-subtitle">Hàng nghìn CTV đã thành công cùng JobShare</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card fade-in">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-content">
+                    Mình đã giới thiệu thành công 15 ứng viên trong 6 tháng qua. Hoa hồng được thanh toán đúng hẹn, quy trình rất minh bạch. Recommend cho mọi người!
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">A</div>
+                    <div class="testimonial-info">
+                        <div class="testimonial-name">Anh Minh</div>
+                        <div class="testimonial-role">CTV Top 5 - Hà Nội</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card fade-in">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-content">
+                    Giao diện dễ sử dụng, việc làm đa dạng và chất lượng. Team support rất nhiệt tình, luôn hỗ trợ mình trong quá trình tiến cử ứng viên.
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">H</div>
+                    <div class="testimonial-info">
+                        <div class="testimonial-name">Chị Hương</div>
+                        <div class="testimonial-role">CTV - TP.HCM</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card fade-in">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-content">
+                    JobShare là cầu nối tuyệt vời giữa nhân tài Việt Nam và doanh nghiệp Nhật Bản. Rất tự hào khi được là một phần của cộng đồng này!
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">D</div>
+                    <div class="testimonial-info">
+                        <div class="testimonial-name">Anh Dũng</div>
+                        <div class="testimonial-role">CTV - Đà Nẵng</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-inner fade-in">
+            <h2 class="cta-title">Sẵn sàng <span>bắt đầu</span> chưa?</h2>
+            <p class="cta-subtitle">
+                Đăng ký ngay hôm nay để trở thành CTV của JobShare và khám phá hàng trăm cơ hội việc làm Nhật Bản. Hoàn toàn miễn phí!
+            </p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary btn-large">Đăng ký ngay</a>
+                <a href="#" class="btn btn-white btn-large">Liên hệ tư vấn</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="footer-logo-text">Job<span>Share</span></span>
+                    </div>
+                    <p class="footer-desc">
+                        Nền tảng kết nối việc làm Nhật Bản thông qua cộng đồng giới thiệu nhân sự. Powered by Workstation.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#">f</a>
+                        <a href="#">Z</a>
+                        <a href="#">✉</a>
+                        <a href="#">▶</a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Khám phá</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Danh sách việc làm</a></li>
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="#">Partner</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Hỗ trợ</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Hướng dẫn sử dụng</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Tư liệu về chúng tôi</a></li>
+                        <li><a href="#">Liên hệ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Liên hệ</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">📍 Hà Nội, Việt Nam</a></li>
+                        <li><a href="#">📧 contact@ws-jobshare.com</a></li>
+                        <li><a href="#">📞 1900 xxxx</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2024 JobShare. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Điều khoản sử dụng</a>
+                    <a href="#">Chính sách bảo mật</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Job tabs
+        const jobTabs = document.querySelectorAll('.job-tab');
+        jobTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                jobTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        // Sakura falling effect
+        function createSakura() {
+            const sakuraContainer = document.getElementById('sakura');
+            const sakura = document.createElement('div');
+            sakura.classList.add('sakura');
+            
+            const size = Math.random() * 15 + 10;
+            const startPos = Math.random() * window.innerWidth;
+            const duration = Math.random() * 5 + 8;
+            const delay = Math.random() * 5;
+            
+            sakura.style.width = size + 'px';
+            sakura.style.height = size + 'px';
+            sakura.style.left = startPos + 'px';
+            sakura.style.animationDuration = duration + 's';
+            sakura.style.animationDelay = delay + 's';
+            sakura.style.opacity = Math.random() * 0.4 + 0.2;
+            
+            sakuraContainer.appendChild(sakura);
+            
+            setTimeout(() => {
+                sakura.remove();
+            }, (duration + delay) * 1000);
+        }
+
+        // Create sakura petals periodically
+        setInterval(createSakura, 800);
+        
+        // Initial batch
+        for (let i = 0; i < 10; i++) {
+            setTimeout(createSakura, i * 200);
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

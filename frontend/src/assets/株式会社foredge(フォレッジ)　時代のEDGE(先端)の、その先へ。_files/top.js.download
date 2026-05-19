@@ -1,0 +1,18 @@
+function setupVideoTransition(video1Id, video2Id) {
+  const video1 = document.getElementById(video1Id);
+  const video2 = document.getElementById(video2Id);
+
+  video1.style.display = 'block';
+  video2.style.display = 'none';
+
+  video1.addEventListener('ended', function() {
+    video1.style.display = 'none';
+    video2.style.display = 'block';
+
+    video2.play();
+    video2.loop = true;
+  });
+}
+
+setupVideoTransition('pc_video1', 'pc_video2');
+setupVideoTransition('sp_video1', 'sp_video2');
