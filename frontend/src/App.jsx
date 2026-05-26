@@ -91,6 +91,22 @@ import JobList from './page/LandingPage/JobList';
 import LandingJobDetailPage from './page/LandingPage/LandingJobDetailPage';
 import CandidateJobApplyPage from './page/LandingPage/Candidate/CandidateJobApplyPage';
 
+// Company imports
+import CompanyLayout from './page/Company/CompanyLayout';
+import CompanyDashboard from './page/Company/CompanyDashboard';
+import CompanyJDList from './page/Company/CompanyJDList';
+import CompanyJDDetail from './page/Company/CompanyJDDetail';
+import CompanyNominations from './page/Company/CompanyNominations';
+import CompanyCandidates from './page/Company/CompanyCandidates';
+import CompanyScout from './page/Company/CompanyScout';
+import CompanySaiyoBranding from './page/Company/CompanySaiyoBranding';
+import CompanySanCTV from './page/Company/CompanySanCTV';
+import CompanyKnowledge from './page/Company/CompanyKnowledge';
+import CompanyReports from './page/Company/CompanyReports';
+import CompanyMessages from './page/Company/CompanyMessages';
+import CompanyBilling from './page/Company/CompanyBilling';
+import CompanySettings from './page/Company/CompanySettings';
+
 // Admin Job Detail: phân quyền Chỉnh sửa (chỉ SuperAdmin role=1, AdminBackOffice role=2)
 const AdminJobDetailWrapper = () => {
   const [adminProfile, setAdminProfile] = useState(null);
@@ -287,6 +303,25 @@ function App() {
             <Route path="posts/create" element={<PostsPage />} />
             <Route path="posts/:id/edit" element={<PostsPage />} />
             <Route path="settings" element={<SettingsPage />} />
+          </Route>
+
+          {/* Company Routes (doanh nghiệp) */}
+          <Route path="/company" element={<CompanyLayout />}>
+            <Route index element={<CompanyDashboard />} />
+            <Route path="jd" element={<CompanyJDList />} />
+            <Route path="jd/:jdId" element={<CompanyJDDetail />} />
+            <Route path="nominations" element={<CompanyNominations />} />
+            <Route path="candidates" element={<CompanyCandidates />} />
+            <Route path="scout" element={<CompanyScout />} />
+            <Route path="scout-performance" element={<CompanyScout />} />
+            <Route path="saiyo-branding" element={<CompanySaiyoBranding />} />
+            <Route path="san-ctv" element={<CompanySanCTV />} />
+            <Route path="knowledge" element={<CompanyKnowledge />} />
+            <Route path="reports" element={<CompanyReports />} />
+            <Route path="requests" element={<CompanyBilling />} />
+            <Route path="messages" element={<CompanyMessages />} />
+            <Route path="billing" element={<CompanyBilling />} />
+            <Route path="settings" element={<CompanySettings />} />
           </Route>
 
           {/* Collaborator Landing Page */}
